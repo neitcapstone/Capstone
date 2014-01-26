@@ -14,13 +14,24 @@ and open the template in the editor.
         <?php
         
         // put your code here
-        //$servSales = StoredProc::getCompanyServiceSales(); 
+         
         //print_r( $servSales );
-        $servSales = StoredProc::getCompanyServiceSales(3); 
+        $servSales = StoredProc::getCompanyServiceSales(0); 
+        $prodSales = StoredProc::getCompanyProductSales(11); 
+        $custs = StoredProc::getCustByCompany(0);
+        $inv = StoredProc::getInvByCompany(0); 
+        $emp = StoredProc::getEmpByCompany(0); 
+        $loc = StoredProc::getLocByCompany(0); 
+        $prod = StoredProc::getProdByCompany(0);
+        $serSched = StoredProc::getSerSchedByCompany(0); 
+        $ser = StoredProc::getSerByCompany(0);
+        
+        
         
         //print_r( $servSales );
         
         if ( is_array($servSales) && count($servSales) ) {
+        
         echo '<table border="1"><caption>My Service Sales</caption><thead><tr>';
             echo '<th>Receipt Date</th><th>Customer Name</th><th>Store Name</th><th>Name of Service</th><th>Hours Billed</th><th>Total Price</th>';
             
@@ -43,16 +54,9 @@ and open the template in the editor.
             echo '</tbody>';
             echo '</table>';
             echo '</div>';
-        }else{
-            echo "No Service Sales in database";
-        }
+        }else 
         
-        echo '<br />';
-        
-        
-        
-        $prodSales = StoredProc::getCompanyProductSales(5); 
-        
+        //echo '<br />';
         //print_r( $prodSales );
         
         if ( is_array($prodSales) && count($prodSales) ) {
@@ -79,14 +83,9 @@ and open the template in the editor.
             echo '</tbody>';
             echo '</table>';
             echo '</div>';
-        }else{
-            echo "No Product Sales in database";
-        }
+        }else
         
-        echo '<br />'; 
-        
-        $custs = StoredProc::getCustByCompany(3); 
-        
+        //echo '<br />';         
         //print_r( $custs );
         
         if ( is_array($custs) && count($custs) ) {
@@ -111,14 +110,9 @@ and open the template in the editor.
             echo '</tbody>';
             echo '</table>';
             echo '</div>';
-        }else{
-            echo "No customers in database";
-        }
+        }else
         
-        echo '<br />'; 
-        
-        $inv = StoredProc::getInvByCompany(5); 
-        
+       // echo '<br />'; 
         //print_r( $inv );
         
         if ( is_array($inv) && count($inv) ) {
@@ -143,14 +137,9 @@ and open the template in the editor.
             echo '</tbody>';
             echo '</table>';
             echo '</div>';
-        }else{
-            echo "No Inventory in database";
-        }
+        }else
         
-        echo '<br />'; 
-        
-        $emp = StoredProc::getEmpByCompany(3); 
-        
+        //echo '<br />'; 
         //print_r( $inv );
         
         if ( is_array($emp) && count($emp) ) {
@@ -176,14 +165,9 @@ and open the template in the editor.
             echo '</tbody>';
             echo '</table>';
             echo '</div>';
-        }else{
-            echo "No Employees in database";
-        }
+        }else
         
-        echo '<br />'; 
-        
-        $loc = StoredProc::getLocByCompany(3); 
-        
+        //echo '<br />'; 
         //print_r( $loc );
         
         if ( is_array($loc) && count($loc) ) {
@@ -208,14 +192,9 @@ and open the template in the editor.
             echo '</tbody>';
             echo '</table>';
             echo '</div>';
-        }else{
-            echo "No Locations in database";
-        }
+        }else
         
-        echo '<br />'; 
-        
-        $prod = StoredProc::getProdByCompany(2); 
-        
+        //echo '<br />'; 
         //print_r( $loc );
         
         if ( is_array($prod) && count($prod) ) {
@@ -238,16 +217,11 @@ and open the template in the editor.
             echo '</tbody>';
             echo '</table>';
             echo '</div>';
-        }else{
-            echo "No Products in database";
-        }
+        }else
         
         
         
-        echo '<br />'; 
-        
-        $ser = StoredProc::getSerByCompany(3); 
-        
+        //echo '<br />'; 
         //print_r( $loc );
         
         if ( is_array($ser) && count($ser) ) {
@@ -269,14 +243,9 @@ and open the template in the editor.
             echo '</tbody>';
             echo '</table>';
             echo '</div>';
-        }else{
-            echo "No Services in database";
-        }
+        }else
         
-        echo '<br />'; 
-        
-        $serSched = StoredProc::getSerSchedByCompany(3); 
-        
+        //echo '<br />'; 
         //print_r( $loc );
         
         if ( is_array($serSched) && count($serSched) ) {
@@ -304,7 +273,7 @@ and open the template in the editor.
             echo '</table>';
             echo '</div>';
         }else{
-            echo "No Scheduled Items in database";
+           echo 'No data'; 
         }
         ?>
     </body>

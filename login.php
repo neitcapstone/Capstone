@@ -12,6 +12,17 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="css/main.css" />
     </head>
     <body>
+        <?php
+        
+        if ( !empty($errorMsg) ) {
+            echo "<p>",$_SESSION[ "errorMsg"],"</p>";
+        }
+        
+        if ( !empty($sucessMsg) ) {
+            echo "<p>",$sucessMsg,"</p>";
+        }
+        
+        ?>
         <div class="wrapper">
             <h1>Capstone</h1>
             <div id="form_wrapper" class="form_wrapper">

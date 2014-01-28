@@ -139,7 +139,7 @@ CREATE TABLE `inventory` (
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-INSERT INTO `inventory` VALUES (1,1,20,1,1),(2,2,10,2,1),(3,3,100,4,1),(4,4,90,6,1),(5,5,45,4,1);
+INSERT INTO `inventory` VALUES (1,1,20,1,1),(2,2,10,2,1),(3,3,100,4,1),(4,4,90,6,1),(5,5,45,4,0);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,7 +203,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'toy','plaything','1.00',1,1,NULL),(2,'pants','size 36','20.00',2,1,NULL),(3,'Baseball','Official MLB ball','10',5,1,NULL),(4,'Football','Official NFL ball','25',5,1,'23-ert'),(5,'Puck','Hockey Puck','15',5,1,NULL);
+INSERT INTO `product` VALUES (1,'toy','plaything','1.00',1,1,NULL),(2,'pants','size 36','20.00',2,1,NULL),(3,'Baseball','Official MLB ball','10',5,1,NULL),(4,'Football','Official NFL ball','25',5,0,'23-ert'),(5,'Puck','Hockey Puck','15',5,1,NULL);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -445,6 +445,228 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (1,3,'m@m.com','xxx','Mike','Jones',2,1),(2,2,'j@k.com','xxx','Kyle','Bob',1,1),(3,3,'t@t.com','xxx','Ern','Ernie',1,1),(4,3,'j@j.com','xxx','Smith','Bill',2,1),(5,3,'b@b.com','xxx','Doe','Jane',3,1),(6,5,'c@c.com','xxx','Kye','Dick',1,1),(7,5,'d@d.com','xxx','Bye','Joe',2,1),(8,5,'e@e.com','xxx','Lye','Dirk',3,1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'datadesigner'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `custByCompany` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `custByCompany`(in nid int)
+BEGIN
+SELECT c.idcustomer AS "UniqueID", concat(c.fName, " ", c.lName) AS "Customer Name", c.address AS "Address",
+	c.city AS "City", c.state AS "State", c.email AS "Email", c.phone AS "Phone", c.active AS "A"
+FROM customer c, user_admin u
+WHERE c.iduser = u.iduser AND u.iduser = nid;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `empByCompany` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `empByCompany`(in nid int)
+BEGIN
+SELECT e.idemployee AS "UniqueID", concat(e.fName, " ", e.lName) AS "Employee Name", e.address AS "Address",
+	e.city AS "City", e.state AS "State", e.zip AS "Zip", e.phone AS "Phone", e.socialSecurity AS
+	"Soc Number", e.active AS "A"
+FROM employee e, user_admin u
+WHERE e.iduser = u.iduser AND u.iduser = nid;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `invByCompany` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `invByCompany`(in nid int)
+BEGIN
+SELECT i.idinventory AS "UniqueID", p.name AS "Product", i.count AS "Count", l.name AS "Location Name", 
+	l.address AS "Location Address", l.city AS "City", i.active AS "A"
+FROM product p, inventory i, user_admin u, location l
+WHERE p.idproduct = i.idproduct AND u.iduser = p.iduser 
+	AND i.idlocation = l.idlocation AND u.iduser = nid
+ORDER By l.city;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `locByCompany` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `locByCompany`(in nid int)
+BEGIN
+SELECT l.idlocation AS "UniqueID", l.name AS "Location Name", l.address AS "Address", l.city AS "City",
+	l.state AS "State", l.zip AS "Zip", l.phone AS "Phone", l.active AS "A"
+FROM location l, user_admin u
+WHERE l.iduser = u.iduser AND u.iduser = nid;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `prodByCompany` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `prodByCompany`(in nid int)
+BEGIN
+SELECT p.idproduct AS "UniqueID", p.name AS "Product Name", p.desc AS "Description", p.price AS "Price",
+	p.ProdCode AS "Product Code", p.active AS "A"
+FROM product p, user_admin u
+WHERE p.iduser = u.iduser AND u.iduser = nid;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `prodSlipByCompany` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `prodSlipByCompany`(in nid int)
+BEGIN
+
+select sp.idsale_product AS "UniqueID", sp.date AS "Receipt Date", CONCAT(c.fName , " ", c.lName) AS "Customer Name",
+	l.name AS "Store Name", l.city AS "City", p.name AS "Name of Product", sp.amount AS "Number Sold",
+	(p.`price` * sp.amount) AS "Total Price", sp.active AS "A"
+FROM sale_product sp, customer c, location l, product p, user_admin ua
+WHERE sp.idcustomer = c.idcustomer AND c.iduser = ua.iduser AND l.idlocation = sp.idlocation 
+	AND sp.idproduct = p.idproduct AND  ua.iduser = nid ; 
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `salesSlipByCompany` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `salesSlipByCompany`(in nid int)
+BEGIN
+
+select ss.idsale_service AS "UniqueID", ss.date AS "Receipt Date", CONCAT(c.fName , " ", c.lName) AS "Customer Name",
+	l.name AS "Store Name", s.serviceName AS "Name of Service", ss.hours AS "Hours Billed",
+	(s.`price-hour` * ss.hours) AS "Total Price", ss.active AS "A"
+FROM sale_service ss, customer c, location l, service s, user_admin ua
+WHERE ss.idcustomer = c.idcustomer AND c.iduser = ua.iduser AND l.idlocation = ss.idlocation 
+	AND ss.idservice = s.idservice AND  ua.iduser = nid ; 
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `serByCompany` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `serByCompany`(in nid int)
+BEGIN
+SELECT p.idservice AS "UniqueID", p.serviceName AS "Service Name", p.desc AS "Description", 
+	p.`price-hour` AS "Hourly Price", p.active AS "A"
+FROM service p, user_admin u
+WHERE p.iduser = u.iduser AND u.iduser = nid;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `serSchedByCompany` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `serSchedByCompany`(in nid int)
+BEGIN
+SELECT ss.idservice_schedule AS "UniqueID", ss.date AS "Date", ss.time AS "Time", s.serviceName AS "Service", c.lName AS "Customer Last Name",
+	c.address AS "Address", c.city AS "City", c.state AS "State", ss.active AS "A"
+FROM service_schedule ss, user_admin u, service s, customer c
+WHERE u.iduser = nid AND s.idservice = ss.idservice AND u.iduser = ss.iduser AND ss.idcustomer 
+	= c.idcustomer
+ORDER BY ss.date;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -455,4 +677,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-01-26 23:02:39
+-- Dump completed on 2014-01-27 17:29:22

@@ -45,15 +45,59 @@
             $tableModel = StoredProc::getSerByCompany($userAdmin);
         }else{
             $tableModel = 0;
-        }           
+        }   
+        
+        $addTableModel;
+        $addFieldModel;
+        if(isset($_GET["add"])){
+            if($_GET["add"]=="Customers"){
+                $addTableModel = StoredProc::getAddingCust($userAdmin);
+                $addFieldModel = StoredProc::getCustFields($userAdmin);
+                print_r($addTableModel);
+            }else if($_GET["add"]=="Employees"){
+                $addTableModel = StoredProc::getAddingEmp($userAdmin);
+                $addFieldModel = StoredProc::getEmpFields($userAdmin);
+            }
+        }
+        
+        
+        
         echo '<div style="width: 69%;border:1px black solid;float:right;">';
+            $getGet1 = explode(" ",implode(" ",array_keys($_GET)))[0];
             if(isset($_GET["edit"])){
                 echo 'EDIT';
+                
             }    
             
             if(isset($_GET["add"])){
                 echo 'ADD';
-                //echo AddUpdate::deleteEntry($getGet, $_GET["delete"]);
+               
+               $AUObEdit = new AddUpdate();
+               $displayAddForm = $AUObEdit->addEntryToTable($getGet1, $_GET["add"]);
+               //echo $displayAddForm;
+               echo '<table border="1"><caption>',  $getGet1 ,'</caption><thead><tr>';  
+                for($i = 0; $i < sizeof(array_keys($addTableModel));$i++ ){
+                    if($i%3==0){
+                        echo '</tr><tr>'; 
+                        
+                        if($i%3==0){
+                           echo '</tr><tr>';                            
+                        }
+                        //echo '<th><input /></th>';
+                    }
+                    echo '<th>',array_keys($addTableModel)[$i]," ",$i,'</th>'; 
+                    echo '<th><input />',array_keys($addFieldModel)[$i],'</th>';
+                }
+                echo '</tr><tr>';
+               //for($i = 0; $i < sizeof(array_keys($addTableModel[0]));$i++ ){
+                   // if($i%3==0){echo '</tr><tr>';}
+                       // echo '<th><input /></th>';
+                    
+               //}
+               echo '</tr></thead><tbody>'; 
+               
+               echo '</tbody></table>';   
+               
             }   
         echo '</div>';
         echo '<div style="width: 99%;border:1px black solid;float:left;">';

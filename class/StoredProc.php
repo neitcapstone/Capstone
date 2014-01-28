@@ -120,4 +120,52 @@ class StoredProc extends DB {
         return $result;
         
     }
+    
+    public static function getAddingCust($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call addingCust(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+    public static function getCustFields($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call getCustFields(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+    public static function getAddingEmp($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call addingEmp(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+    public static function getEmpFields($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call getEmpFields(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
 }

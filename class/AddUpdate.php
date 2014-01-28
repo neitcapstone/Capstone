@@ -14,30 +14,11 @@
 class AddUpdate extends DB{
     
     public static function deleteEntry($tableName, $id) {
-        $tab;
-        if($tableName=="Service-Sales"){
-           $tab = "sale_service"; 
-        }else if($tableName=="Product-Sales"){
-           $tab = "sale_product"; 
-        }else if($tableName=="Customers"){
-           $tab = "customer"; 
-        }else if($tableName=="Inventory"){
-           $tab = "inventory"; 
-        }else if($tableName=="Employees"){
-           $tab = "employee"; 
-        }else if($tableName=="Location"){
-           $tab = "location"; 
-        }else if($tableName=="Products"){
-           $tab = "product"; 
-        }else if($tableName=="Service-Schedule"){
-           $tab = "service_schedule"; 
-        }else if($tableName=="Service"){
-           $tab = "service"; 
-        }else{
-           $tab = ""; 
-        }
-        echo $tab;
-        echo $id;
+
+//        echo $tab;
+//        echo $id;
+        $getTabOb = new AddUpdate();
+        $tab = $getTabOb->getNeededTable($tableName);
         $dbc = new DB();
         $db = $dbc->getDB();
         //UPDATE `datadesigner`.`customer` SET `active`='0' WHERE `idcustomer`='3';
@@ -46,10 +27,43 @@ class AddUpdate extends DB{
         $statement->bindParam(':id', $id, PDO::PARAM_INT);
         
         if ( $statement->execute() ) {
-            header("Location:testProc.php?".$tableName."=1");
+            header("Location:tableCrud.php?".$tableName."=1");
             return true;
         }
         
         return false;
+    }
+    
+    public function addEntryToTable($tableName, $id){
+        $getTabOb = new AddUpdate();
+        $tab = $getTabOb->getNeededTable($tableName);
+        
+        
+    }
+    
+    public function getNeededTable($tableName){      
+       
+        if($tableName=="Service-Sales"){
+           return "sale_service"; 
+        }else if($tableName=="Product-Sales"){
+           return "sale_product"; 
+        }else if($tableName=="Customers"){
+           return "customer"; 
+        }else if($tableName=="Inventory"){
+           return "inventory"; 
+        }else if($tableName=="Employees"){
+           return "employee"; 
+        }else if($tableName=="Location"){
+           return "location"; 
+        }else if($tableName=="Products"){
+           return "product"; 
+        }else if($tableName=="Service-Schedule"){
+           return "service_schedule"; 
+        }else if($tableName=="Service"){
+           return "service"; 
+        }else{
+           return ""; 
+        }
+        
     }
 }

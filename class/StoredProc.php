@@ -168,4 +168,136 @@ class StoredProc extends DB {
         return $result;
         
     }
+    
+    public static function addingLoc($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call addingLoc(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+    public static function getLocFields($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call getLocFields(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+    public static function addingProd($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call addingProd(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+    public static function getProdFields($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call getProdFields(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+    public static function addingServ($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call addingServ(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+    public static function getServFields($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call getServFields(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+    public static function gettingInvByCompany($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call getInvByCompany(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+    public static function gettingLocByCompany($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call gettingLocByCompany(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+    public static function gettingCustByCompany($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call gettingCustByCompany(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+     public static function gettingServByCompany($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call getServByCompany(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+    
+    public static function findTablesUsed($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call findTablesUsed(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
 }

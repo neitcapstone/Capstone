@@ -34,11 +34,39 @@ class AddUpdate extends DB{
         return false;
     }
     
-    public function addEntryToTable($tableName, $id){
+    public function addEntryToTable($post, $tableName, $id){
         $getTabOb = new AddUpdate();
         $tab = $getTabOb->getNeededTable($tableName);
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $storedCall = getStoredCall($tableName);
+        //for($i=0, $i < sizeof($post)-3, $i++){}
+        
+        try{
+            $statement = $db->prepare($storedCall);
+        /*    $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+            $statement = $db->prepare('insert into address set name_id = :name_idValue, '
+                . 'address = :addressValue, '
+                . 'city = :cityValue, '
+                . 'state = :stateValue, '
+                . 'zip = :zipValue');*/
+            $statement->execute();
+            
+        }catch(PDOException $e){
+            echo $e->getMessage();
+        }
         
         
+    }
+    
+    public function getStoredCall($tab){
+        if($tab=="employee"){            
+            $storedCall = 'call insertIntoEmployee('.$post["fName"].','.$post["lName"].','.$post["address"].','.$post["city"].','
+                    .$post["state"].','.$post["zip"].','.$post["socialSecurity"].','.$post["phone"].','.$post["id"].')';
+          //echo  $storedCall; 
+            
+            
+        }
     }
     
     public function getNeededTable($tableName){      

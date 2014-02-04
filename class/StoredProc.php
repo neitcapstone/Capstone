@@ -300,4 +300,16 @@ class StoredProc extends DB {
         return $result;
         
     }
+    
+    public static function getUserAdminId($passId){
+        $idnum = $passId;
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call getUserAdminId(:nid);');
+        $statement->bindParam(':nid', $idnum, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
 }

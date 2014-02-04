@@ -9,8 +9,8 @@
     </head>
     <body>
         <?php 
-        $_SESSION["userid"] = 3;
-        $userAdmin = $_SESSION["userid"];
+        //$_SESSION["userid"] = 3;
+        $userAdmin = intval($_SESSION["iduser"]["iduser"]);
         print_r($_SESSION);        
         $tUsed = StoredProc::findTablesUsed($userAdmin);
         //print_r($tUsed);
@@ -111,7 +111,9 @@
             
             //build edit table
             if(isset($_GET["edit"])){
-                echo 'EDIT';                
+                echo 'EDIT'; 
+                $editCust = new EditPage();
+                echo $editCust->editCustTable($userAdmin,$_GET["edit"]);
             }    
             
             //build add table
@@ -318,10 +320,8 @@
                     }                                
                     echo '</tbody></table>';
                     echo '<input type="hidden" name="id" value="',$userAdmin,'" />';
-                    echo '<input type="submit" name="create" value="ADD" />';
-                    
-                    }   
-                
+                    echo '<input type="submit" name="create" value="ADD" />';                    
+                    }                 
                 }
                 echo '</form>';
                 echo '</div>';
@@ -356,7 +356,7 @@
                         }
                     }  
                     if($row["A"]==1){
-                        echo '<td><a class="links" href="?',$getGet,'=1&edit=',sha1($row["UniqueID"]),'">Edit</a></td>';
+                        echo '<td><a class="links" href="?',$getGet,'=1&edit=',$row["UniqueID"],'">Edit</a></td>';
                         echo '<td><a class="links" href="?',$getGet,'=1&delete=',$row["UniqueID"],'" onclick="return confirm(\'Are you sure you want to delete this item?\')">Delete</a></td>';
                     }    
                     echo '</tr>';

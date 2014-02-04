@@ -8,5 +8,5 @@ class Config {
             DB_USER  = "root",
             DB_PASSWORD  = "",
             PAGE_TITLE = "Data Designer",
-            MAX_SESSION_TIME = 180;
+            MAX_SESSION_TIME = 10000;
 }

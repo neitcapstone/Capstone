@@ -1,21 +1,21 @@
 <?php
 
-
-class Login {
-    //check for correct passcode
-    public static function processLogin(){
-         $_SESSION['allowGuestbookAccess'] = false;        
-        if (isset($_POST['passcode']) && $_POST['passcode'] == "test") {
-            $_SESSION['allowGuestbookAccess'] = true;
-            header("Location:guestbook.php");
+class Login extends DB 
+        {   
+            public function loginIsValid( $email, $password ) 
+                {
+                    $password = sha1($password);
+                    $db = $this->getDB();
+                    if ( NULL != $db ) 
+                        {
+                            $stmt = $db->prepare('select * from user_admin where email = :emailValue and password = :passwordValue limit 1');
+                            $stmt->bindParam(':emailValue', $email, PDO::PARAM_STR);
+                            $stmt->bindParam(':passwordValue', $password, PDO::PARAM_STR);
+                            $stmt->execute();
+                            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                            if ( is_array($result) && count($result) ) return true;
+                        }
+                        return false;
+                } 
         }
-    }
-    //user gets redirected if passcode not set or incorrect
-    public static function confirmAccess(){
-        if ( !isset($_SESSION['allowGuestbookAccess']) || $_SESSION['allowGuestbookAccess'] != true) {
-            header("Location:login.php");            
-        }
-    }
-}
-
-

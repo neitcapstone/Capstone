@@ -10,6 +10,9 @@
     <body>
         <?php 
         //$_SESSION["userid"] = 3;
+        if(!isset($_SESSION['isLoggedIn'])){
+            header("Location:login.php");
+        }
         $userAdmin = intval($_SESSION["iduser"]["iduser"]);
         print_r($_SESSION);        
         $tUsed = StoredProc::findTablesUsed($userAdmin);
@@ -112,8 +115,37 @@
             //build edit table
             if(isset($_GET["edit"])){
                 echo 'EDIT'; 
-                $editCust = new EditPage();
-                echo $editCust->editCustTable($userAdmin,$_GET["edit"]);
+                if(isset($_GET['Customers'])){
+                    $editCust = new EditPage();
+                    echo $editCust->editCustTable($userAdmin,$_GET["edit"]);
+                }else if(isset($_GET['Employees'])){
+                    $editEmp = new EditPage();
+                    echo $editEmp->editEmpTable($userAdmin,$_GET["edit"]);
+                }else if(isset($_GET['Location'])){
+                    $editLoc = new EditPage();
+                    echo $editLoc->editLocTable($userAdmin,$_GET["edit"]);
+                }else if(isset($_GET['Products'])){
+                    $editProd = new EditPage();
+                    echo $editProd->editProdTable($userAdmin,$_GET["edit"]);
+                }else if(isset($_GET['Service'])){
+                    $editServ = new EditPage();
+                    echo $editServ->editServTable($userAdmin,$_GET["edit"]);
+                }else if(isset($_GET['Product-Sales'])){
+                    $editProdSales = new EditPage();
+                    echo $editProdSales->editProdSalesTable($userAdmin,$_GET["edit"]);
+                }else if(isset($_GET['Inventory'])){
+                    $editInv = new EditPage();
+                    echo $editInv->editInvTable($userAdmin,$_GET["edit"]);
+                    //
+                }else if(isset($_GET['Service-Sales'])){
+                    $editServSales = new EditPage();
+                    echo $editServSales->editServSalesTable($userAdmin,$_GET["edit"]);
+                }else if(isset($_GET['Service-Schedule'])){
+                    $editServSched = new EditPage();
+                    echo $editServSched->editServSchedTable($userAdmin,$_GET["edit"]);
+                }
+                
+                
             }    
             
             //build add table
@@ -277,8 +309,7 @@
                             echo '<option value="'.$inv[$i]["idproduct"].'">'.$inv[$i]["name"].'</option>';
                         }                        
                         echo '</select>';
-                        echo '</th><th>Customer</th>';
-                        
+                        echo '</th><th>Customer</th>';                        
                         echo '<th><select name="idcustomer">';
                         echo '<option value="">Choose..</option>';
                         echo '<option value="9999">Unregistered</option>';

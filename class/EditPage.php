@@ -247,7 +247,7 @@ class EditPage extends DB{
     public function editServSalesTable($id, $rowid){
        
         
-        $result = $this->getDataBaseCall('call getServSchedSaleRow(:nid, :rid);', $id, $rowid);
+        $result = $this->getDataBaseCall('call getServSalesSaleRow(:nid, :rid);', $id, $rowid);
         $loc = StoredProc::gettingLocByCompany($id);
         $cust  = StoredProc::gettingCustByCompany($id);
         $serv = StoredProc::gettingServByCompany($id);

@@ -14,6 +14,7 @@
             header("Location:login.php");
         }
         $userAdmin = intval($_SESSION["iduser"]["iduser"]);
+        
         print_r($_SESSION);        
         $tUsed = StoredProc::findTablesUsed($userAdmin);
         //print_r($tUsed);
@@ -84,6 +85,18 @@
         }else{
             $tableModel = 0;
         }   
+        
+        if(isset($_POST['edithidinv'])){
+           // var_dump($_POST);
+            $upInv = new EditPage();
+            $upInv->updateInventory($_POST['idproduct'], $_POST['idlocation'], $_POST['count'], $_POST['edithidinv']);
+        }
+        if(isset($_POST['edithidprodsales'])){
+            var_dump($_POST);
+            $upProdSales = new EditPage();
+            $upProdSales->updateProdSales($_POST['idproduct'], $_POST['idlocation'], $_POST['amount'], 
+                    $_POST['date'], $_POST['idcustomer'], $_POST['edithidprodsales']);
+        }
         
         //retrieve info from stored procedures based on GET
         $addTableModel;

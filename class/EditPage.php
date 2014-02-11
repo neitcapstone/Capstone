@@ -153,8 +153,30 @@ class EditPage extends DB{
         echo '<th>Date</th><th><input type="text" name="date" value="'.$result['date'].'" /></th>';
         echo '</tr>';
         echo '</table>';
-        echo '<input type="submit" value="EDIT" />';
+        echo '<th><input type="hidden" name="edithidprodsales" value="'.$result['idsale_product'].'" /></th>';
+        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')"/>';
         echo '</form>';
+    }
+    
+    public function updateProdSales($idprod, $idloc, $amount, 
+                    $date, $idcust, $id){
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call updateProdSalesTable(:idprod ,:idloc, :amount, 
+	:idcust, :dte, :id);');
+        $statement->bindParam(':idprod', $idprod, PDO::PARAM_INT);
+        $statement->bindParam(':idloc', $idloc, PDO::PARAM_INT);
+        $statement->bindParam(':idcust', $idcust, PDO::PARAM_INT);
+        $statement->bindParam(':dte', $date, PDO::PARAM_STR);
+        $statement->bindParam(':amount', $amount, PDO::PARAM_INT);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        //$statement->execute();
+        if ( $statement->execute() ) {
+            header("Location:tableCrud.php?Product-Sales=1");
+            return true;
+        }        
+        return false;
+        
     }
     
     public function editInvTable($id, $rowid){
@@ -197,11 +219,27 @@ class EditPage extends DB{
         echo '</th>';
         echo '</tr>';
         echo '</table>';
-        echo '<input type="submit" value="EDIT" />';
-        echo '</form>';
-        
+        echo '<th><input type="hidden" name="edithidinv" value="'.$result['idinventory'].'" /></th>';
+        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')"/>';
+        echo '</form>';        
     }
     
+    public function updateInventory($idprod,$idloc,$count,$id){
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call updateInventoryTable(:idprod, :idloc, :count, :id);');
+        $statement->bindParam(':idprod', $idprod, PDO::PARAM_INT);
+        $statement->bindParam(':idloc', $idloc, PDO::PARAM_INT);
+        $statement->bindParam(':count', $count, PDO::PARAM_INT);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        //$statement->execute();
+        if ( $statement->execute() ) {
+            header("Location:tableCrud.php?Inventory=1");
+            return true;
+        }        
+        return false;
+    }
+
     public function editServSchedTable($id, $rowid){
        
         $result = $this->getDataBaseCall('call getServSchedTableRow(:nid, :rid);', $id, $rowid);
@@ -295,9 +333,10 @@ class EditPage extends DB{
         echo '<tr>';
         echo '<th>Time</th><th><input type="text" name="hours" value="'.$result['hours'].'" /></th>';
         echo '<th>Date</th><th><input type="text" name="date" value="'.$result['date'].'" /></th>';
+        echo '<th><input type="hidden" name="edithid" value="1" /></th>';
         echo '</tr>';
         echo '</table>';
-        echo '<input type="submit" value="EDIT" />';
+        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
         echo '</form>';
     
     }
@@ -314,6 +353,19 @@ class EditPage extends DB{
         
     }
     
+    public function addToTablesUsed($field, $id){
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('UPDATE tablesused SET '.$field.'=1 WHERE iduser = :nid');
+        $statement->bindParam(':nid', $id, PDO::PARAM_INT);
+        $statement->execute();
+        //$statement->fetch(PDO::FETCH_ASSOC); 
+        //
+        //if($_POST['inventory']){
+        //    $obj = new Class();  
+        //    $obj->addToTablesUsed('inventory', $userAdmin);
+        //}
+    }
 }
 
 ?>

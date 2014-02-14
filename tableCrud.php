@@ -87,16 +87,61 @@
         }   
         
         if(isset($_POST['edithidinv'])){
-           // var_dump($_POST);
+           
             $upInv = new EditPage();
             $upInv->updateInventory($_POST['idproduct'], $_POST['idlocation'], $_POST['count'], $_POST['edithidinv']);
         }
         if(isset($_POST['edithidprodsales'])){
-            var_dump($_POST);
+            
             $upProdSales = new EditPage();
             $upProdSales->updateProdSales($_POST['idproduct'], $_POST['idlocation'], $_POST['amount'], 
                     $_POST['date'], $_POST['idcustomer'], $_POST['edithidprodsales']);
         }
+        if(isset($_POST['edithidserv'])){
+            
+            $upServ = new EditPage();
+            $upServ->updateServTable($_POST['serviceName'], $_POST['desc'], $_POST['price-hour'], $_POST['edithidserv']);
+        }
+        
+        if(isset($_POST['edithidservsales'])){
+            
+            $upServSales = new EditPage();
+            $upServSales->updateServSalesTable($_POST['date'], $_POST['idlocation'], $_POST['idservice'],
+                    $_POST['idcustomer'], $_POST['hours'], $_POST['edithidservsales']);
+        }
+        
+        if(isset($_POST['edithidservsched'])){
+            
+            $upServSched = new EditPage();
+            $upServSched->updateServSchedTable($_POST['date'], $_POST['time'], $_POST['idservice'],
+                    $_POST['idcustomer'], $_POST['edithidservsched']);
+        }
+        if(isset($_POST['edithidprod'])){
+           
+            $upProd = new EditPage();
+            $upProd->updateProdTable( $_POST['price'], $_POST['desc'], $_POST['ProdCode'], $_POST['name'], $_POST['edithidprod']);
+        }
+        
+        if(isset($_POST['edithidloc'])){
+            var_dump($_POST);
+            $upLoc = new EditPage();
+            $upLoc->updateLocTable( $_POST['name'], $_POST['address'], $_POST['state'], $_POST['zip'], $_POST['phone'],$_POST['city'],$_POST['edithidloc']);
+        }
+        
+        if(isset($_POST['edithidcust'])){
+            var_dump($_POST);
+            $upCust = new EditPage();
+            $upCust->updateCustTable( $_POST['fName'], $_POST['lName'], $_POST['address'], $_POST['state'], $_POST['zip'], $_POST['phone'],
+                    $_POST['city'],$_POST['email'],$_POST['edithidcust']);
+        }
+        
+        if(isset($_POST['edithidemp'])){
+            var_dump($_POST);
+            $upEmp = new EditPage();
+            $upEmp->updateEmpTable( $_POST['fName'], $_POST['lName'], $_POST['address'], $_POST['state'], $_POST['zip'], $_POST['socialSecurity'],
+                    $_POST['phone'],$_POST['city'],$_POST['edithidemp']);
+        }
+        
         
         //retrieve info from stored procedures based on GET
         $addTableModel;

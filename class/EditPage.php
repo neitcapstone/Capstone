@@ -12,10 +12,8 @@
  */
 class EditPage extends DB{
         
-    public function editCustTable($id, $rowid){      
-        
-        $result = $this->getDataBaseCall('call getCustTableRow(:nid, :rid);', $id, $rowid);
-        
+    public function editCustTable($id, $rowid){            
+        $result = $this->getDataBaseCall('call getCustTableRow(:nid, :rid);', $id, $rowid);        
         echo '<form action="#" method="post">';
         echo '<table><caption>Customers</caption><tr>';
         echo '<th>First Name</th><th><input type="text" name="fName" value="'.$result['fName'].'" /></th><th>Last Name</th><th><input type="text" name="lName" value="'.$result['lName'].'" /></th></tr>';
@@ -23,15 +21,34 @@ class EditPage extends DB{
         echo '<tr><th>Address</th><th><input type="text" name="address" value="'.$result['address'].'" /></th><th>City</th><th><input type="text" name="city" value="'.$result['city'].'" /></th></tr>';
         echo '<tr><th>State</th><th><input type="text" name="state" value="'.$result['state'].'" /></th><th>Zip</th><th><input type="text" name="zip" value="'.$result['zip'].'" /></th>';            
         echo '</tr>';
-
         echo '</table>';
-        echo '<input type="submit" value="EDIT" />';
+        echo '<th><input type="hidden" name="edithidcust" value="'.$result['idcustomer'].'" /></th>';
+        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
         echo '</form>';
     }
     
-    public function editEmpTable($id, $rowid){
-       
-        
+    public function updateCustTable($fName,$lName,$address,$state,$zip,$phone,$city,$email,$id){
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call updateCustTable(:lname, :fname, :addr, :state, :zip, :phone, :city, :email, :id);');
+        $statement->bindParam(':lname', $fName, PDO::PARAM_STR);
+        $statement->bindParam(':fname', $lName, PDO::PARAM_STR);
+        $statement->bindParam(':addr', $address, PDO::PARAM_STR);
+        $statement->bindParam(':email', $email, PDO::PARAM_STR);
+        $statement->bindParam(':state', $state, PDO::PARAM_STR);
+        $statement->bindParam(':zip', $zip, PDO::PARAM_STR);
+        $statement->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $statement->bindParam(':city', $city, PDO::PARAM_STR);        
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        //$statement->execute();
+        if ( $statement->execute() ) {
+            header("Location:tableCrud.php?Customers=1");
+            return true;
+        }        
+        return false;  
+    }
+    
+    public function editEmpTable($id, $rowid){            
         $result = $this->getDataBaseCall('call getEmpTableRow(:nid, :rid);', $id, $rowid);
         echo '<form action="#" method="post">';
         echo '<table><caption>Employess</caption><tr>';
@@ -40,12 +57,34 @@ class EditPage extends DB{
         echo '<tr><th>Address</th><th><input type="text" name="address" value="'.$result['address'].'" /></th><th>City</th><th><input type="text" name="city" value="'.$result['city'].'" /></th></tr>';
         echo '<tr><th>State</th><th><input type="text" name="state" value="'.$result['state'].'" /></th><th>Zip</th><th><input type="text" name="zip" value="'.$result['zip'].'" /></th>';            
         echo '</tr>';
-
         echo '</table>';
-        echo '<input type="submit" value="EDIT" />';
-        echo '</form>';
-        
+        echo '<th><input type="hidden" name="edithidemp" value="'.$result['idemployee'].'" /></th>';
+        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
+        echo '</form>';        
     }
+    
+    public function updateEmpTable($fName,$lName,$address,$state,$zip,$socialSecurity,
+        $phone,$city,$id){
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call updateEmpTable(:lname, :fname, :addr, :state, :zip, :ss, :phone, :city,  :id);');
+        $statement->bindParam(':lname', $fName, PDO::PARAM_STR);
+        $statement->bindParam(':fname', $lName, PDO::PARAM_STR);
+        $statement->bindParam(':addr', $address, PDO::PARAM_STR);
+        $statement->bindParam(':ss', $socialSecurity, PDO::PARAM_STR);
+        $statement->bindParam(':state', $state, PDO::PARAM_STR);
+        $statement->bindParam(':zip', $zip, PDO::PARAM_STR);
+        $statement->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $statement->bindParam(':city', $city, PDO::PARAM_STR);        
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        //$statement->execute();
+        if ( $statement->execute() ) {
+            header("Location:tableCrud.php?Employees=1");
+            return true;
+        }        
+        return false;  
+    }
+    
     
     public function editLocTable($id, $rowid){
        
@@ -59,10 +98,31 @@ class EditPage extends DB{
         echo '</tr>';
 
         echo '</table>';
-        echo '<input type="submit" value="EDIT" />';
+        echo '<th><input type="hidden" name="edithidloc" value="'.$result['idlocation'].'" /></th>';
+        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
         echo '</form>';
         
     }
+    
+    public function updateLocTable($name,$addr,$state,$zip,$phone,$city,$id){
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call updateLocTable(:name, :addr, :state, :zip, :phone, :city, :id);');
+        $statement->bindParam(':name', $name, PDO::PARAM_STR);
+        $statement->bindParam(':addr', $addr, PDO::PARAM_STR);
+        $statement->bindParam(':state', $state, PDO::PARAM_STR);
+        $statement->bindParam(':zip', $zip, PDO::PARAM_STR);
+        $statement->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $statement->bindParam(':city', $city, PDO::PARAM_STR);        
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        //$statement->execute();
+        if ( $statement->execute() ) {
+            header("Location:tableCrud.php?Location=1");
+            return true;
+        }        
+        return false;
+    }
+    
     
     public function editprodTable($id, $rowid){       
         
@@ -76,10 +136,30 @@ class EditPage extends DB{
         echo '</tr>';
 
         echo '</table>';
-        echo '<input type="submit" value="EDIT" />';
+        echo '<th><input type="hidden" name="edithidprod" value="'.$result['idproduct'].'" /></th>';
+        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
         echo '</form>';
         
     }   
+    
+    public function updateProdTable($price,$desc,$prodcode,$name,$id){
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call updateProdTable(:price, :desc, :ProdCode, 
+	:name, :id);');
+        //$statement->bindParam(':idserv', $idserv, PDO::PARAM_INT);
+        $statement->bindParam(':price', $price, PDO::PARAM_STR);
+        $statement->bindParam(':desc', $desc, PDO::PARAM_STR);
+        $statement->bindParam(':ProdCode', $prodcode, PDO::PARAM_STR);
+        $statement->bindParam(':name', $name, PDO::PARAM_STR);        
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        //$statement->execute();
+        if ( $statement->execute() ) {
+            header("Location:tableCrud.php?Products=1");
+            return true;
+        }        
+        return false;
+    }
     
     
     public function editServTable($id, $rowid){
@@ -94,9 +174,27 @@ class EditPage extends DB{
         echo '</tr>';
 
         echo '</table>';
-        echo '<input type="submit" value="EDIT" />';
-        echo '</form>';
-        
+        echo '<th><input type="hidden" name="edithidserv" value="'.$result['idservice'].'" /></th>';
+        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
+        echo '</form>'; 
+    }
+    
+    public function updateServTable($name, $desc, $price, $id){
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call updateServTable(:price, :desc, 
+	:name, :id);');
+        //$statement->bindParam(':idserv', $idserv, PDO::PARAM_INT);
+        $statement->bindParam(':price', $price, PDO::PARAM_STR);
+        $statement->bindParam(':desc', $desc, PDO::PARAM_STR);
+        $statement->bindParam(':name', $name, PDO::PARAM_STR);        
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        //$statement->execute();
+        if ( $statement->execute() ) {
+            header("Location:tableCrud.php?Service=1");
+            return true;
+        }        
+        return false;
         
     }
     
@@ -276,12 +374,30 @@ class EditPage extends DB{
         echo '<th>Date</th><th><input type="text" name="date" value="'.$result['date'].'" /></th>';
         echo '</tr>';
         echo '</table>';
-        echo '<input type="submit" value="EDIT" />';
-        echo '</form>';
-        
+         echo '<th><input type="hidden" name="edithidservsched" value="'.$result['idservice_schedule'].'" /></th>';
+        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
+        echo '</form>';        
     }    
     
+    public function updateServSchedTable($date,$time,$idserv,$idcust,$id){
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call updateServSchedTable(:date, :time, :idserv, :idcust, :id);');
+        $statement->bindParam(':date', $date, PDO::PARAM_STR);
+        $statement->bindParam(':time', $time, PDO::PARAM_STR);
+        $statement->bindParam(':idserv', $idserv, PDO::PARAM_INT);
+        $statement->bindParam(':idcust', $idcust, PDO::PARAM_INT);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        //$statement->execute();
+        if ( $statement->execute() ) {
+            header("Location:tableCrud.php?Service-Schedule=1");
+            return true;
+        }        
+        return false;
+    }
+
     
+
     public function editServSalesTable($id, $rowid){
        
         
@@ -333,12 +449,30 @@ class EditPage extends DB{
         echo '<tr>';
         echo '<th>Time</th><th><input type="text" name="hours" value="'.$result['hours'].'" /></th>';
         echo '<th>Date</th><th><input type="text" name="date" value="'.$result['date'].'" /></th>';
-        echo '<th><input type="hidden" name="edithid" value="1" /></th>';
+        echo '<th><input type="hidden" name="edithidservsales" value="'.$result['idsale_service'].'" /></th>';
         echo '</tr>';
         echo '</table>';
         echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
         echo '</form>';
     
+    }
+    
+    public function updateServSalesTable($date,$idloc,$idservice,$idcust,$hours,$id){
+        $dbc = new DB();
+        $db = $dbc->getDB();
+        $statement = $db->prepare('call updateServSalesTable(:dte, :idloc, :idserv,:idcust, :hours, :id);');
+        $statement->bindParam(':idserv', $idservice, PDO::PARAM_INT);
+        $statement->bindParam(':idloc', $idloc, PDO::PARAM_INT);
+        $statement->bindParam(':idcust', $idcust, PDO::PARAM_INT);
+        $statement->bindParam(':dte', $date, PDO::PARAM_STR);
+        $statement->bindParam(':hours', $hours, PDO::PARAM_STR);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        //$statement->execute();
+        if ( $statement->execute() ) {
+            header("Location:tableCrud.php?Service-Sales=1");
+            return true;
+        }        
+        return false;
     }
     //This function returns the database results, takes in the call string to the stored procedure and to ints iding the user and row
     private function getDataBaseCall($dbstring, $id, $rowid){

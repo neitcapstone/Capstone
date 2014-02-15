@@ -239,7 +239,7 @@ class EditPage extends DB{
         //
         echo '</th><th>Customer</th>';                        
         echo '<th><select name="idcustomer">';        
-        echo '<option value="9999">Unregistered</option>';
+        //echo '<option value="9999">Unregistered</option>';
         for($i=0;$i<sizeof($cust);$i++){
             $selected = ($result['idcustomer']==$cust[$i]['idcustomer']) ? 'selected' : '';
             echo '<option value="'.$cust[$i]["idcustomer"].'"'
@@ -349,7 +349,7 @@ class EditPage extends DB{
         
         echo '</th><th>Customer</th>';                        
         echo '<th><select name="idcustomer">';        
-        echo '<option value="9999">Unregistered</option>';
+        //echo '<option value="9999">Unregistered</option>';
         for($i=0;$i<sizeof($cust);$i++){
             $selected = ($result['idcustomer']==$cust[$i]['idcustomer']) ? 'selected' : '';
             echo '<option value="'.$cust[$i]["idcustomer"].'"'

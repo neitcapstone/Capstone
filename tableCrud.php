@@ -15,7 +15,7 @@
         }
         $userAdmin = intval($_SESSION["iduser"]["iduser"]);
         
-        print_r($_SESSION);        
+       // print_r($_SESSION);        
         $tUsed = StoredProc::findTablesUsed($userAdmin);
         //print_r($tUsed);
         ?>
@@ -201,9 +201,7 @@
                 }else if(isset($_GET['Service-Schedule'])){
                     $editServSched = new EditPage();
                     echo $editServSched->editServSchedTable($userAdmin,$_GET["edit"]);
-                }
-                
-                
+                }   
             }    
             
             //build add table
@@ -215,7 +213,51 @@
                         //$displayAddForm = $AUObEdit->addEntryToTable($_POST, $getGet1, $userAdmin);
                         //echo '<br />' , sizeof($_POST);
                    }
-                   //echo $displayAddForm;
+                   
+                   
+                   echo $getGet1;
+                   //calls to add to tables
+                   //not done
+                   if(isset($_POST['addservsales'])){ 
+                       var_dump($_POST);
+                       StoredProc::addServSales($_POST['idlocation'], $_POST['idservice'], $_POST['idcustomer'], $_POST['hours'],  
+                               $_POST['date'], $_POST['addservsales']);
+                   }else
+                       //not done
+                    if(isset($_POST['addservsched'])){ 
+                       var_dump($_POST);
+                       StoredProc::addServSched($_POST['addservsched'], $_POST['idservice'], $_POST['idcustomer'], $_POST['time'],  
+                            $_POST['date']);
+                   }else
+                   if(isset($_POST['addprodsales'])){                        
+                       StoredProc::addProdSales($_POST['idlocation'], $_POST['idproduct'], $_POST['idcustomer'], $_POST['amount'],  
+                               $_POST['date'], $_POST['addprodsales']);
+                   }else
+                   if(isset($_POST['addinv'])){                       
+                       StoredProc::addInv($_POST['idproduct'], $_POST['idlocation'], $_POST['count']);
+                   }else          
+                   if(isset($_POST['add']) && $_POST['add']=='ADD' && $getGet1=='Products'){  
+                       StoredProc::addProd($_POST['name'], $_POST['desc'], $_POST['id'], 
+                               $_POST['price'], $_POST['ProdCode']);
+                   }else                   
+                   if(isset($_POST['add']) && $_POST['add']=='ADD' && $getGet1=='Customers'){
+                       StoredProc::addCust($_POST['fName'], $_POST['lName'], $_POST['id'], 
+                               $_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip'], $_POST['email'], $_POST['phone']);
+                   }else                   
+                   if(isset($_POST['add']) && $_POST['add']=='ADD' && $getGet1=='Employees'){                       
+                       StoredProc::addEmp($_POST['fName'], $_POST['lName'], $_POST['id'], 
+                               $_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip'], $_POST['socialSecurity'], $_POST['phone']);
+                   }else                   
+                   if(isset($_POST['add']) && $_POST['add']=='ADD' && $getGet1=='Location'){                      
+                       StoredProc::addLoc($_POST['name'], $_POST['id'], 
+                               $_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip'], $_POST['phone']);
+                   }else
+                       //not done
+                   if(isset($_POST['add']) && $_POST['add']=='ADD' && $getGet1=='Service'){ 
+                       var_dump($_POST);
+                       StoredProc::addServ($_POST['serviceName'], $_POST['desc'], $_POST['id'], 
+                               $_POST['price-hour']);
+                   }
                     
                     echo '<form action="#" method="post">';
                     //create add table
@@ -247,8 +289,8 @@
                         echo '</th>';
                         echo '</tr>';                        
                         echo '</tbody></table>';
-                        echo '<input type="hidden" name="id" value="',$userAdmin,'" />';
-                        echo '<input type="submit" name="create" value="ADD" />';
+                        echo '<input type="hidden" name="addinv" value="',$userAdmin,'" />';
+                        echo '<input type="submit" name="create" value="ADD" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';
                         
                     //product sales add table
                     }else if($_GET["add"]=="Service-Sales"){
@@ -298,8 +340,8 @@
                         echo '</th>';
                         
                         echo '</tr></tbody></table>';
-                        echo '<input type="hidden" name="id" value="',$userAdmin,'" />';
-                        echo '<input type="submit" name="create" value="ADD" />';
+                        echo '<input type="hidden" name="addservsales" value="',$userAdmin,'" />';
+                        echo '<input type="submit" name="create" value="ADD" onclick="return confirm(\'Are you sure you want to add this item?\')" />';
                         
                     }else if($_GET["add"]=="Service-Schedule"){
                         $cust  = StoredProc::gettingCustByCompany($userAdmin);
@@ -312,7 +354,7 @@
                         echo '<th>Customer</th>';
                         echo '<th><select name="idcustomer">';
                         echo '<option value="">Choose..</option>';
-                        echo '<option value="9999">Unregistered</option>';
+                        //echo '<option value="9999">Unregistered</option>';
                         for($i=0;$i<sizeof($cust);$i++){
                             echo '<option value="'.$cust[$i]["idcustomer"].'">'.$cust[$i]["fName"].' '.$cust[$i]["lName"].'</option>';
                         }                        
@@ -337,8 +379,8 @@
                         echo '</th>';
                         
                         echo '</tr></tbody></table>';
-                        echo '<input type="hidden" name="id" value="',$userAdmin,'" />';
-                        echo '<input type="submit" name="create" value="ADD" />';
+                        echo '<input type="hidden" name="addservsched" value="',$userAdmin,'" />';
+                        echo '<input type="submit" name="create" value="ADD" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';
                         
                         
                     }else if($_GET["add"]=="Product-Sales"){
@@ -370,7 +412,7 @@
                         echo '</th><th>Customer</th>';                        
                         echo '<th><select name="idcustomer">';
                         echo '<option value="">Choose..</option>';
-                        echo '<option value="9999">Unregistered</option>';
+                        //echo '<option value="100">Unregistered</option>';
                         for($i=0;$i<sizeof($cust);$i++){
                             echo '<option value="'.$cust[$i]["idcustomer"].'">'.$cust[$i]["fName"].' '.$cust[$i]["lName"].'</option>';
                         }                        
@@ -387,10 +429,10 @@
                         echo '</th>';
                         
                         echo '</tr></tbody></table>';
-                        echo '<input type="hidden" name="id" value="',$userAdmin,'" />';
-                        echo '<input type="submit" name="create" value="ADD" />';
+                        echo '<input type="hidden" name="addprodsales" value="',$userAdmin,'" />';
+                        echo '<input type="submit" name="create" value="ADD" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';
                         
-                    }else{
+                    }else if(isset($_GET['add'])){
                     
                         //echo '<form action="#" method="post">';
                         echo '<table ><caption>',  $getGet1 ,'</caption><thead><tr>';
@@ -409,7 +451,7 @@
                     }                                
                     echo '</tbody></table>';
                     echo '<input type="hidden" name="id" value="',$userAdmin,'" />';
-                    echo '<input type="submit" name="create" value="ADD" />';                    
+                    echo '<input type="submit" name="add" value="ADD" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';                    
                     }                 
                 }
                 echo '</form>';

@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="css/main.css" />
     </head>
     <body>
+        
         <?php 
         //$_SESSION["userid"] = 3;
         if(!isset($_SESSION['isLoggedIn'])){
@@ -20,42 +21,42 @@
         //print_r($tUsed);
         ?>
         <div class="wrapper">
-            <div id="tabLinks" style="width: 20%;float:left;">
+            <div id="tabLinks">
                 <?php
                 if($tUsed["sale_service_table"]){
-                    echo '<a href="?Service-Sales=1">My Service Sales</a><br /><br />';
+                    echo '<a href="?Service-Sales=1">Service Sales</a><br /><br />';
                 }
                 
                 if($tUsed["sale_product_table"]){
-                    echo '<a href="?Product-Sales=1">My Product Sales</a><br /><br />';
+                    echo '<a href="?Product-Sales=1">Product Sales</a><br /><br />';
                 }
                 
                 if($tUsed["customer_table"]){
-                    echo '<a href="?Customers=1">My Customers</a><br /><br />';
+                    echo '<a href="?Customers=1">Customers</a><br /><br />';
                 }
                 
                 if($tUsed["inventory"]){
-                    echo '<a href="?Inventory=1">My Inventory</a><br /><br />';
+                    echo '<a href="?Inventory=1">Inventory</a><br /><br />';
                 }
                 
                 if($tUsed["employee_table"]){
-                    echo '<a href="?Employees=1">My Employees</a><br /><br />';
+                    echo '<a href="?Employees=1">Employees</a><br /><br />';
                 }
                 
                 if($tUsed["location_table"]){
-                    echo '<a href="?Location=1">My Locations</a><br /><br />';
+                    echo '<a href="?Location=1">Locations</a><br /><br />';
                 }
                 
                 if($tUsed["product_table"]){
-                    echo '<a href="?Products=1">My Products</a><br /><br />';
+                    echo '<a href="?Products=1">Products</a><br /><br />';
                 }
                 
                 if($tUsed["service_schedule_table"]){
-                    echo '<a href="?Service-Schedule=1">My Service Schedule</a><br /><br />';
+                    echo '<a href="?Service-Schedule=1">Service Schedule</a><br /><br />';
                 }
                 
                 if($tUsed["service_table"]){
-                    echo '<a href="?Service=1">My Services</a><br /> <br />'; 
+                    echo '<a href="?Service=1">Services</a><br /> <br />'; 
                 }
                 ?>
             </div>
@@ -123,20 +124,20 @@
         }
         
         if(isset($_POST['edithidloc'])){
-            var_dump($_POST);
+            //var_dump($_POST);
             $upLoc = new EditPage();
             $upLoc->updateLocTable( $_POST['name'], $_POST['address'], $_POST['state'], $_POST['zip'], $_POST['phone'],$_POST['city'],$_POST['edithidloc']);
         }
         
         if(isset($_POST['edithidcust'])){
-            var_dump($_POST);
+            //var_dump($_POST);
             $upCust = new EditPage();
             $upCust->updateCustTable( $_POST['fName'], $_POST['lName'], $_POST['address'], $_POST['state'], $_POST['zip'], $_POST['phone'],
                     $_POST['city'],$_POST['email'],$_POST['edithidcust']);
         }
         
         if(isset($_POST['edithidemp'])){
-            var_dump($_POST);
+            //var_dump($_POST);
             $upEmp = new EditPage();
             $upEmp->updateEmpTable( $_POST['fName'], $_POST['lName'], $_POST['address'], $_POST['state'], $_POST['zip'], $_POST['socialSecurity'],
                     $_POST['phone'],$_POST['city'],$_POST['edithidemp']);
@@ -147,6 +148,7 @@
         $addTableModel;
         $addFieldModel;
         if(isset($_GET["add"])){
+           
             if($_GET["add"]=="Customers"){
                 $addTableModel = StoredProc::getAddingCust($userAdmin);
                 $addFieldModel = StoredProc::getCustFields($userAdmin);
@@ -167,12 +169,13 @@
         }
         
         //CRUD DIV
-        echo '<div style="width: 79%;float:right;">';
+        echo '<div id="crudDiv">';
             $getGet1 = explode(" ",implode(" ",array_keys($_GET)))[0];
             
             //build edit table
             if(isset($_GET["edit"])){
-                echo 'EDIT'; 
+                echo  '<div id=tableAdd>EDIT<br /></div>'; 
+                echo '<div id=displayAddForm>';
                 if(isset($_GET['Customers'])){
                     $editCust = new EditPage();
                     echo $editCust->editCustTable($userAdmin,$_GET["edit"]);
@@ -202,30 +205,28 @@
                     $editServSched = new EditPage();
                     echo $editServSched->editServSchedTable($userAdmin,$_GET["edit"]);
                 }   
+                echo '</div>'; 
             }    
             
             //build add table
             if(isset($_GET["add"])){
-                echo 'Table to Add data<br />';
+              // echo '<div id=tableAdd>Table to Add data<br /></div>';
                    //print_r($_POST);
                    $AUObEdit = new AddUpdate();
-                   if(isset($_POST["create"])){
-                        //$displayAddForm = $AUObEdit->addEntryToTable($_POST, $getGet1, $userAdmin);
-                        //echo '<br />' , sizeof($_POST);
-                   }
                    
                    
-                   echo $getGet1;
+                   
+                   //echo $getGet1;
                    //calls to add to tables
                    //not done
                    if(isset($_POST['addservsales'])){ 
-                       var_dump($_POST);
+                       //var_dump($_POST);
                        StoredProc::addServSales($_POST['idlocation'], $_POST['idservice'], $_POST['idcustomer'], $_POST['hours'],  
                                $_POST['date'], $_POST['addservsales']);
                    }else
                        //not done
                     if(isset($_POST['addservsched'])){ 
-                       var_dump($_POST);
+                       //var_dump($_POST);
                        StoredProc::addServSched($_POST['addservsched'], $_POST['idservice'], $_POST['idcustomer'], $_POST['time'],  
                             $_POST['date']);
                    }else
@@ -254,12 +255,13 @@
                    }else
                        //not done
                    if(isset($_POST['add']) && $_POST['add']=='ADD' && $getGet1=='Service'){ 
-                       var_dump($_POST);
+                       //var_dump($_POST);
                        StoredProc::addServ($_POST['serviceName'], $_POST['desc'], $_POST['id'], 
                                $_POST['price-hour']);
                    }
                     
-                    echo '<form action="#" method="post">';
+                   // echo '<form action="#" method="post">';
+                    echo '<form id=displayAddForm action="#" method="post">';
                     //create add table
                     if($_GET["add"]=="Inventory"){
                         $inv = StoredProc::gettingInvByCompany($userAdmin);
@@ -369,7 +371,7 @@
                         }                        
                         echo '</select>';
                         echo '</th>';
-                        
+                        echo '</tr><tr>';
                         echo '<th>Date</th>';
                         echo '<th><input type="text" name="date" value="" />';; 
                         echo '</th>';
@@ -439,15 +441,17 @@
                         echo '</tr><tr>';               
                         echo '</tr></thead><tbody>';
                         for($i = 0; $i < sizeof(array_keys($addTableModel));$i++ ){
-                        if($i%3==0){
+                        
+                        if($i%2==0){
                             echo '</tr><tr>'; 
 
-                            if($i%3==0){
+                            if($i%2==0){
                                echo '</tr><tr>';                            
                             }                        
                         }
-                        echo '<th>',array_keys($addTableModel)[$i],'</th>'; 
+                        echo '<th>',array_keys($addTableModel)[$i],'</th>';
                         echo '<th><input type="text" name="',array_keys($addFieldModel)[$i],'" /></th>';
+                         
                     }                                
                     echo '</tbody></table>';
                     echo '<input type="hidden" name="id" value="',$userAdmin,'" />';
@@ -458,7 +462,7 @@
                 echo '</div>';
         //build data tables
                
-        echo '<div style="width: 99%;float:left;">';
+        echo '<div id="dataTable">';
         if ( is_array($tableModel) && count($tableModel) ) { 
             $getGet = explode(" ",implode(" ",array_keys($_GET)))[0];
             if(isset($_GET["delete"])){
@@ -466,30 +470,30 @@
                 echo AddUpdate::deleteEntry($getGet, $_GET["delete"]);
             } 
             echo '<br /><br /><br /><br />' ;
-            echo '<td><a class="links" href="?',$getGet,'=1&add=',$getGet,'">ADD TO TABLE</a></td>';
+             echo '<td><a id="linkAddToTable" href="?',$getGet,'=1&add=',$getGet,'">ADD TO TABLE</a></td>';
            // print_r($tableModel);
             echo '<table border="1"><caption>',  $getGet ,'</caption><thead><tr>';  
             
                 for($i = 0; $i < sizeof(array_keys($tableModel[0]));$i++ ){
-                    if(array_keys($tableModel[0])[$i] != "A"){
+                    //if(array_keys($tableModel[0])[$i] != "A"){
                         echo '<th>',array_keys($tableModel[0])[$i],'</th>';
-                    }
+                    //}
                 }
                 echo '<th>Edit</th> <th>Delete</th>';                
                 echo '</tr></thead><tbody>';    
                 foreach ($tableModel as $row) {
                     echo '<tr>'; 
                     for($i = 0; $i < sizeof(array_keys($tableModel[0]));$i++ ){
-                        if(array_keys($tableModel[0])[$i] != "A"){
-                            if($row["A"]==1){
+                        //if(array_keys($tableModel[0])[$i] != "A"){
+                           // if($row["A"]==1){
                                 echo '<td>',$row[array_keys($tableModel[0])[$i]],'</td>';
-                            }
-                        }
+                            //}
+                        //}
                     }  
-                    if($row["A"]==1){
+                    //if($row["A"]==1){
                         echo '<td><a class="links" href="?',$getGet,'=1&edit=',$row["UniqueID"],'">Edit</a></td>';
                         echo '<td><a class="links" href="?',$getGet,'=1&delete=',$row["UniqueID"],'" onclick="return confirm(\'Are you sure you want to delete this item?\')">Delete</a></td>';
-                    }    
+                    //}    
                     echo '</tr>';
                 }
                 echo '</tbody></table></div>';                

@@ -28,9 +28,7 @@ h1{
 }
 form.active{
 	display:block;
-	box-shadow:10px 10px 10px #000;	
-	
-	
+	box-shadow:10px 10px 10px #000;		
 }
 form.login{
 	width:350px;
@@ -128,6 +126,172 @@ form.forgot_password{
 	border-radius: 4px;	
 }
 .form_wrapper input[type="submit"]:hover {
+	background: #ffa800;
+	color: #222;
+}
+#tabLinks{ 
+    width:210px;
+    float:left;
+    background-color:#444;
+    text-align: center;
+    line-height:30px;
+    padding: 40px 10px ;
+    border-radius: 4px;
+    margin:0px 0px 20px 0px;
+    box-shadow:10px 10px 10px #000;
+    font-size: 17px;
+    font-weight: bold;
+}
+a{
+  color:#fff;
+  text-decoration: none;
+}
+
+#tabLinks a:hover{
+  color:#000;
+  background-color: #ffa800;
+  text-decoration: none;
+  border-left: 30px solid #ffa800;
+  border-right: 30px solid #ffa800;
+  border-top: 10px solid #ffa800;
+  border-bottom: 10px solid #ffa800;
+  box-shadow:5px 5px 5px #000; 
+}
+
+#crudDiv{
+    width: 700px;
+    float:right;
+    background-color:#444;
+    line-height:50px;
+    color: #fff;
+    font-size: 17px;
+    font-weight: bold;
+    box-shadow:10px 10px 10px #000;
+    border-radius: 4px;     
+}
+
+#displayAddForm{
+   background-color:#444;
+   background: #fff;
+   color:#000;
+   font-size: 13px;
+   border: 10px solid #444;
+   border-radius: 15px;
+                                      
+}
+
+.links{
+  color:#000;
+  background-color: #ffa800;
+  border-left: 30px solid #ffa800;
+  border-right: 30px solid #ffa800;
+  border-top: 10px solid #ffa800;
+  border-bottom: 10px solid #ffa800;
+  box-shadow:5px 5px 5px #000;
+  font-weight: bold;
+}
+.links:hover {
+  color:#000;
+  background-color: darkorange;
+  text-decoration: none;
+  border-left: 30px solid darkorange;
+  border-right: 30px solid darkorange;
+  border-top: 10px solid darkorange;
+  border-bottom: 10px solid darkorange;
+  box-shadow:5px 5px 5px #000;
+  font-weight: bold;
+}
+
+#dataTable {
+    width:100%;	
+    height: 100%;
+                         
+}
+
+#dataTable table{
+    width:100%;
+    margin-top: 430px;
+    padding:30px;
+    color: #fff;
+    background: #444;
+    box-shadow:10px 10px 10px #000; 
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: bold; 
+}
+#dataTable tr:hover td{
+    background-color:#ffffff;
+}
+#dataTable td{
+    vertical-align:middle;
+    background-color:#aad4ff;
+    border:1px solid #000000;
+    border-width:0px 1px 1px 0px;
+    text-align:left;
+    padding:7px;
+    font-size:13px;
+    font-family:Arial;
+    color:#000;
+}
+#dataTable tr,td{
+    background-color:#005fbf;
+    border:0px solid #000000;
+    text-align:center;
+    border-width:0px 0px 1px 1px;
+    font-size:16px;
+    font-family:Arial;
+    font-weight:bold;
+    color:#ffffff;
+    height:30px;
+}
+#linkAddToTable{
+    z-index: 100;
+    position: absolute;
+    margin-top: 400px;
+    margin-left: 520px;
+    
+}
+#linkAddToTable{
+  color:#000;
+  background-color: #ffa800;
+  border-left: 30px solid #ffa800;
+  border-right: 30px solid #ffa800;
+  border-top: 10px solid #ffa800;
+  border-bottom: 10px solid #ffa800;
+  box-shadow:5px 5px 5px #000;
+  font-weight: bold;
+
+}
+#linkAddToTable:hover {
+  color:#000;
+  background-color: darkorange;
+  text-decoration: none;
+  border-left: 30px solid darkorange;
+  border-right: 30px solid darkorange;
+  border-top: 10px solid darkorange;
+  border-bottom: 10px solid darkorange;
+  box-shadow:5px 5px 5px #000;
+  font-weight: bold;
+}
+
+#tableAdd{
+    padding-left: 20px;
+}
+input[type="submit"] {
+	background: #e3e3e3;
+	border: 1px solid #ccc;
+	color: #333;
+	font-family: Arial;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 8px 0 9px;
+	text-align: center;
+	width: 150px;
+	float:right;
+	margin:15px 20px 10px 10px;
+	border-radius: 4px;	
+}
+input[type="submit"]:hover {
 	background: #ffa800;
 	color: #222;
 }

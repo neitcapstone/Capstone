@@ -407,10 +407,8 @@ class EditPage extends DB{
         $serv = StoredProc::gettingServByCompany($id);
         
         echo '<form action="#" method="post">';
-        echo '<table><caption>Product Sales</caption><tr>';
-        //
-        echo '<form action="#" method="post">';
-        echo '<table><caption>Product Sales</caption><tr>';
+        echo '<table><caption>Service Sales</caption><tr>';
+        
         //
         echo '<th>Location</th>';
         echo '<th><select name="idlocation">';        

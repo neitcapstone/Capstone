@@ -23,7 +23,7 @@ class EditPage extends DB{
         echo '</tr>';
         echo '</table>';
         echo '<th><input type="hidden" name="edithidcust" value="'.$result['idcustomer'].'" /></th>';
-        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
+        echo '<input type="submit" value="EDIT" class="fadelinks" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
         echo '</form>';
     }
     
@@ -59,7 +59,7 @@ class EditPage extends DB{
         echo '</tr>';
         echo '</table>';
         echo '<th><input type="hidden" name="edithidemp" value="'.$result['idemployee'].'" /></th>';
-        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
+        echo '<input type="submit" value="EDIT" class="fadelinks" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
         echo '</form>';        
     }
     
@@ -99,7 +99,7 @@ class EditPage extends DB{
 
         echo '</table>';
         echo '<th><input type="hidden" name="edithidloc" value="'.$result['idlocation'].'" /></th>';
-        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
+        echo '<input type="submit" value="EDIT" class="fadelinks" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
         echo '</form>';
         
     }
@@ -137,7 +137,7 @@ class EditPage extends DB{
 
         echo '</table>';
         echo '<th><input type="hidden" name="edithidprod" value="'.$result['idproduct'].'" /></th>';
-        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
+        echo '<input type="submit" value="EDIT" class="fadelinks" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
         echo '</form>';
         
     }   
@@ -175,7 +175,7 @@ class EditPage extends DB{
 
         echo '</table>';
         echo '<th><input type="hidden" name="edithidserv" value="'.$result['idservice'].'" /></th>';
-        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
+        echo '<input type="submit" value="EDIT"  class="fadelinks" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
         echo '</form>'; 
     }
     
@@ -252,7 +252,7 @@ class EditPage extends DB{
         echo '</tr>';
         echo '</table>';
         echo '<th><input type="hidden" name="edithidprodsales" value="'.$result['idsale_product'].'" /></th>';
-        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')"/>';
+        echo '<input type="submit" value="EDIT" class="fadelinks" onclick="return confirm(\'Are you sure you want to edit this item?\')"/>';
         echo '</form>';
     }
     
@@ -318,7 +318,7 @@ class EditPage extends DB{
         echo '</tr>';
         echo '</table>';
         echo '<th><input type="hidden" name="edithidinv" value="'.$result['idinventory'].'" /></th>';
-        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')"/>';
+        echo '<input type="submit" value="EDIT" class="fadelinks" onclick="return confirm(\'Are you sure you want to edit this item?\')"/>';
         echo '</form>';        
     }
     
@@ -375,7 +375,7 @@ class EditPage extends DB{
         echo '</tr>';
         echo '</table>';
          echo '<th><input type="hidden" name="edithidservsched" value="'.$result['idservice_schedule'].'" /></th>';
-        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
+        echo '<input type="submit" value="EDIT" class="fadelinks" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
         echo '</form>';        
     }    
     
@@ -450,7 +450,7 @@ class EditPage extends DB{
         echo '<th><input type="hidden" name="edithidservsales" value="'.$result['idsale_service'].'" /></th>';
         echo '</tr>';
         echo '</table>';
-        echo '<input type="submit" value="EDIT" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
+        echo '<input type="submit" value="EDIT" class="fadelinks" onclick="return confirm(\'Are you sure you want to edit this item?\')" />';
         echo '</form>';
     
     }

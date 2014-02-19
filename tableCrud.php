@@ -292,7 +292,7 @@
                         echo '</tr>';                        
                         echo '</tbody></table>';
                         echo '<input type="hidden" name="addinv" value="',$userAdmin,'" />';
-                        echo '<input type="submit" name="create" value="ADD" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';
+                        echo '<input type="submit" name="create" value="ADD" class="fadelinks" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';
                         
                     //product sales add table
                     }else if($_GET["add"]=="Service-Sales"){
@@ -343,7 +343,7 @@
                         
                         echo '</tr></tbody></table>';
                         echo '<input type="hidden" name="addservsales" value="',$userAdmin,'" />';
-                        echo '<input type="submit" name="create" value="ADD" onclick="return confirm(\'Are you sure you want to add this item?\')" />';
+                        echo '<input type="submit" name="create" value="ADD" class="fadelinks" onclick="return confirm(\'Are you sure you want to add this item?\')" />';
                         
                     }else if($_GET["add"]=="Service-Schedule"){
                         $cust  = StoredProc::gettingCustByCompany($userAdmin);
@@ -382,7 +382,7 @@
                         
                         echo '</tr></tbody></table>';
                         echo '<input type="hidden" name="addservsched" value="',$userAdmin,'" />';
-                        echo '<input type="submit" name="create" value="ADD" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';
+                        echo '<input type="submit" name="create" value="ADD" class="fadelinks" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';
                         
                         
                     }else if($_GET["add"]=="Product-Sales"){
@@ -432,7 +432,7 @@
                         
                         echo '</tr></tbody></table>';
                         echo '<input type="hidden" name="addprodsales" value="',$userAdmin,'" />';
-                        echo '<input type="submit" name="create" value="ADD" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';
+                        echo '<input type="submit" name="create" value="ADD" class="fadelinks" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';
                         
                     }else if(isset($_GET['add'])){
                     
@@ -455,7 +455,7 @@
                     }                                
                     echo '</tbody></table>';
                     echo '<input type="hidden" name="id" value="',$userAdmin,'" />';
-                    echo '<input type="submit" name="add" value="ADD" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';                    
+                    echo '<input type="submit" class="fadelinks" name="add" value="ADD" class="fadelinks" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';                    
                     }                 
                 }
                 echo '</form>';
@@ -492,7 +492,7 @@
                     }  
                     //if($row["A"]==1){
                         echo '<td><a class="links" href="?',$getGet,'=1&edit=',$row["UniqueID"],'">Edit</a></td>';
-                        echo '<td><a class="links" href="?',$getGet,'=1&delete=',$row["UniqueID"],'" onclick="return confirm(\'Are you sure you want to delete this item?\')">Delete</a></td>';
+                        echo '<td><a class="links fadelinks"  href="?',$getGet,'=1&delete=',$row["UniqueID"],'" onclick="return confirm(\'Are you sure you want to delete this item?\')">Delete</a></td>';
                     //}    
                     echo '</tr>';
                 }
@@ -500,6 +500,8 @@
         }
             echo '</div>';            
         ?>
-        <div>            
+        <div>  
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/jscr.js"></script> 
     </body>
 </html>

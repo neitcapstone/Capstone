@@ -156,11 +156,11 @@ class StoredProc extends DB {
         return false;                
     }
     
-    public static function addProd($name, $desc, $price, $iduser, $ProdCode){
+    public static function addProd($name, $desc, $iduser, $price, $ProdCode){
         
         $dbc = new DB();
         $db = $dbc->getDB();
-        $statement = $db->prepare('call addProdTable(:name, :desc, :price, :iduser, :ProdCode);');
+        $statement = $db->prepare('call addProdTable(:name, :desc, :iduser, :price,  :ProdCode);');
         
         $statement->bindParam(':name', $name, PDO::PARAM_STR);
          
@@ -341,9 +341,8 @@ class StoredProc extends DB {
         $statement = $db->prepare('call addingEmp(:nid);');
         $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
         $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
-        return $result;
-        
+        $result = $statement->fetch(PDO::FETCH_ASSOC);        
+            return $result;     
     }
     
     public static function getEmpFields($passId){
@@ -414,6 +413,7 @@ class StoredProc extends DB {
         $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
+        
         return $result;
         
     }

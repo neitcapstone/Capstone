@@ -24,39 +24,39 @@
             <div id="tabLinks">
                 <?php
                 if($tUsed["sale_service_table"]){
-                    echo '<a href="?Service-Sales=1">Service Sales</a><br /><br />';
+                    echo '<a href="?Service-Sales=1" class="fadelinks">Service Sales</a><br /><br />';
                 }
                 
                 if($tUsed["sale_product_table"]){
-                    echo '<a href="?Product-Sales=1">Product Sales</a><br /><br />';
+                    echo '<a href="?Product-Sales=1" class="fadelinks">Product Sales</a><br /><br />';
                 }
                 
                 if($tUsed["customer_table"]){
-                    echo '<a href="?Customers=1">Customers</a><br /><br />';
+                    echo '<a href="?Customers=1" class="fadelinks">Customers</a><br /><br />';
                 }
                 
                 if($tUsed["inventory"]){
-                    echo '<a href="?Inventory=1">Inventory</a><br /><br />';
+                    echo '<a href="?Inventory=1" class="fadelinks">Inventory</a><br /><br />';
                 }
                 
                 if($tUsed["employee_table"]){
-                    echo '<a href="?Employees=1">Employees</a><br /><br />';
+                    echo '<a href="?Employees=1" class="fadelinks">Employees</a><br /><br />';
                 }
                 
                 if($tUsed["location_table"]){
-                    echo '<a href="?Location=1">Locations</a><br /><br />';
+                    echo '<a href="?Location=1" class="fadelinks">Locations</a><br /><br />';
                 }
                 
                 if($tUsed["product_table"]){
-                    echo '<a href="?Products=1">Products</a><br /><br />';
+                    echo '<a href="?Products=1" class="fadelinks">Products</a><br /><br />';
                 }
                 
                 if($tUsed["service_schedule_table"]){
-                    echo '<a href="?Service-Schedule=1">Service Schedule</a><br /><br />';
+                    echo '<a href="?Service-Schedule=1" class="fadelinks">Service Schedule</a><br /><br />';
                 }
                 
                 if($tUsed["service_table"]){
-                    echo '<a href="?Service=1">Services</a><br /> <br />'; 
+                    echo '<a href="?Service=1" class="fadelinks">Services</a><br /> <br />'; 
                 }
                 ?>
             </div>
@@ -174,7 +174,7 @@
             
             //build edit table
             if(isset($_GET["edit"])){
-                echo  '<div id=tableAdd>EDIT<br /></div>'; 
+                //echo  '<div id=tableAdd>EDIT<br /></div>'; 
                 echo '<div id=displayAddForm>';
                 if(isset($_GET['Customers'])){
                     $editCust = new EditPage();
@@ -435,7 +435,7 @@
                         echo '<input type="submit" name="create" value="ADD" class="fadelinks" onclick="return confirm(\'Are you sure you want to add this item?\')"/>';
                         
                     }else if(isset($_GET['add'])){
-                    
+                        
                         //echo '<form action="#" method="post">';
                         echo '<table ><caption>',  $getGet1 ,'</caption><thead><tr>';
                         echo '</tr><tr>';               
@@ -463,14 +463,20 @@
         //build data tables
                
         echo '<div id="dataTable">';
+        $getGet = explode(" ",implode(" ",array_keys($_GET)))[0];
+        //var_dump($_GET);
+        if(sizeof($_GET)>0){
+            echo '<td><a id="linkAddToTable" href="?',$getGet,'=1&add=',$getGet,'">ADD TO TABLE</a></td>';
+        }
         if ( is_array($tableModel) && count($tableModel) ) { 
-            $getGet = explode(" ",implode(" ",array_keys($_GET)))[0];
+            
+            
             if(isset($_GET["delete"])){
                 echo 'DELETED';
                 echo AddUpdate::deleteEntry($getGet, $_GET["delete"]);
             } 
             echo '<br /><br /><br /><br />' ;
-             echo '<td><a id="linkAddToTable" href="?',$getGet,'=1&add=',$getGet,'">ADD TO TABLE</a></td>';
+             
            // print_r($tableModel);
             echo '<table border="1"><caption>',  $getGet ,'</caption><thead><tr>';  
             

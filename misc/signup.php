@@ -17,23 +17,11 @@
                 $signupClass = new Signup();            
                 if($signupClass->entryIsValid() )
                     {  
-                        
-                    $signupClass->saveEntry();
-
-                            
-                            $userID = intval($_SESSION["iduser"]["iduser"]);
-                            $db = new DB();
-                            $db = $db->getDB();
-                            if (null != $db) {
-                                $stmt = $db->prepare('insert into tablesused set iduser = :iduserValue;'
-                                        .'update tablesused set type = 3 where iduser = :iduserValue; ');
-                                $stmt->bindParam(':iduserValue', $userID, PDO::PARAM_INT);
-                                $stmt->execute();
-                                header("Location: login.php");
-                            }
-                           
-
-             }
+                        $signupClass->saveEntry(); 
+                        header("Location: login.php");
+                    }else{
+                            $entryErrors = $signupClass->getErrors();
+                         }
              }
         ?>
         
@@ -81,30 +69,11 @@
                             }  
                         ?>
                     </div>
-                     <div>
-                         <label>Select a security question.</label>
-                         <p><select name="Security" method=''>
-                             <option value="1">What is your mother's maiden name?</option>
-                             <option value="2">What was your first car?</option>
-                             <option value="3">What is your first pet's name?</option>
-                             <option value="4">What is street did you grow up on?</option>
-                         </select>
-                             </p>
-                    </div>
-                    <div>
-                        <label>Security Answer:</label>
-                        <input type="text" name="security_answer" required/>
-                        <?php if (!empty($entryErrors['password']) ) 
-                            {
-                                echo '<p>' , $entryErrors['password'], ' </p>';
-                            }  
-                        ?>
-                    </div>
                     
                     <div class="bottom">
                         <input type="submit" value="Submit" />
                         <a href="login.php" rel="login" class="register linkform">You have an account already? Log in here</a>
-                    </div> 
+                    </div>
                 </form>
             </div>		
         </div>

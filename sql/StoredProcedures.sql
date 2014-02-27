@@ -222,44 +222,62 @@ END$$
 
 --
 DROP PROCEDURE IF exists `getInvByCompany` $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getInvByCompany`(in nid int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getInvByCompany`(in nid int, in editadd int)
 BEGIN
-SELECT p.name, p.idproduct
-FROM product p, user_admin u
-WHERE u.iduser = p.iduser AND u.iduser = nid AND p.active = 1;
-
+IF editadd = 1 THEN
+	SELECT p.name, p.idproduct
+	FROM product p, user_admin u
+	WHERE u.iduser = p.iduser AND u.iduser = nid;	
+ELSE 
+	SELECT p.name, p.idproduct
+	FROM product p, user_admin u
+	WHERE u.iduser = p.iduser AND u.iduser = nid AND p.active = 1;
+END IF;
 END$$
-
 --
-
 DROP PROCEDURE IF exists `gettingLocByCompany` $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `gettingLocByCompany`(in nid int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `gettingLocByCompany`(in nid int, in editadd int)
 BEGIN
-SELECT p.address, p.idlocation
-FROM location p, user_admin u
-WHERE u.iduser = p.iduser AND u.iduser = nid AND p.active = 1;
-
+IF editadd = 1 THEN
+	SELECT p.address, p.idlocation
+	FROM location p, user_admin u
+	WHERE u.iduser = p.iduser AND u.iduser = nid;
+ELSE 
+	SELECT p.address, p.idlocation
+	FROM location p, user_admin u
+	WHERE u.iduser = p.iduser AND u.iduser = nid AND p.active = 1;
+END IF;
 END$$
-
 --
-
 DROP PROCEDURE IF exists `gettingCustByCompany` $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `gettingCustByCompany`(in nid int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `gettingCustByCompany`(in nid int, in editadd int)
 BEGIN
-SELECT distinct p.fName, p.lName, p.idcustomer
-FROM customer p, user_admin u
-WHERE u.iduser = p.iduser AND u.iduser = nid AND p.active = 1;
-
+IF editadd = 1 THEN
+	SELECT distinct p.fName, p.lName, p.idcustomer
+	FROM customer p, user_admin u
+	WHERE u.iduser = p.iduser AND u.iduser = nid;
+ELSE
+	SELECT distinct p.fName, p.lName, p.idcustomer
+	FROM customer p, user_admin u
+	WHERE u.iduser = p.iduser AND u.iduser = nid AND p.active = 1;
+END IF;
 END$$
 
 --
 DROP PROCEDURE IF exists `getServByCompany` $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getServByCompany`(in nid int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getServByCompany`(in nid int, in editadd int)
 BEGIN
-SELECT p.serviceName, p.idservice
-FROM service p, user_admin u
-WHERE u.iduser = p.iduser AND u.iduser = nid AND p.active = 1;
-
+-- SELECT p.serviceName, p.idservice
+-- FROM service p, user_admin u
+IF editadd = 1 THEN
+	SELECT p.serviceName, p.idservice
+	FROM service p, user_admin u
+	WHERE u.iduser = p.iduser AND u.iduser = nid;
+ELSE
+	SELECT p.serviceName, p.idservice
+	FROM service p, user_admin u
+	WHERE u.iduser = p.iduser AND u.iduser = nid AND p.active = 1;
+END IF;
 END$$
 
 

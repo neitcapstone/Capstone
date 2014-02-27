@@ -10,6 +10,7 @@
     <body>
         
         <?php 
+
         //$_SESSION["userid"] = 3;
         if(!isset($_SESSION['isLoggedIn'])){
             header("Location:login.php");
@@ -23,11 +24,11 @@
         <div class="wrapper">
             <div id="tabLinks">
                 <?php
-                if (isset($_GET['logout']) && $_GET['logout'] == 1)
+            if (isset($_GET['logout']) && $_GET['logout'] == 1)
             {
                 header('Location: login.php');
                 session_destroy();
-            }   
+            }      
                 if($tUsed["sale_service_table"]){
                     echo '<a href="?Service-Sales=1" class="fadelinks">Service Sales</a><br /><br />';
                 }
@@ -65,7 +66,10 @@
                 }
                 echo ' <a href="admin.php" class="fadelinks">Dashboard</a><br /> <br />';
                 echo     '<a href="admin.php?logout=1" href="login.php" class="fadelinks">Logout</a><br /> <br />';
+
+
                 ?>
+           
             </div>
         <?php        
         //$_SESSION["userid"] = 3;
@@ -271,8 +275,8 @@
                     echo '<form id=displayAddForm action="#" method="post">';
                     //create add table
                     if($_GET["add"]=="Inventory"){
-                        $inv = StoredProc::gettingInvByCompany($userAdmin, 0);
-                        $loc = StoredProc::gettingLocByCompany($userAdmin, 0);
+                        $inv = StoredProc::gettingInvByCompany($userAdmin);
+                        $loc = StoredProc::gettingLocByCompany($userAdmin);
                         //print_r($loc);
                         
                         echo '<table ><caption>',  $getGet1 ,'</caption><thead><tr>';
@@ -303,9 +307,9 @@
                         
                     //product sales add table
                     }else if($_GET["add"]=="Service-Sales"){
-                        $serv = StoredProc::gettingServByCompany($userAdmin, 0);
-                        $loc = StoredProc::gettingLocByCompany($userAdmin, 0);
-                        $cust  = StoredProc::gettingCustByCompany($userAdmin, 0);
+                        $serv = StoredProc::gettingServByCompany($userAdmin);
+                        $loc = StoredProc::gettingLocByCompany($userAdmin);
+                        $cust  = StoredProc::gettingCustByCompany($userAdmin);
                         //print_r($serv);
                         //echo '<form action="#" method="post">';
                         echo '<table ><caption>',  $getGet1 ,'</caption><thead><tr>';
@@ -332,7 +336,7 @@
                         
                         echo '<th><select name="idcustomer">';
                         echo '<option value="">Choose..</option>';
-                        //echo '<option value="9999">Unregistered</option>';
+                        echo '<option value="9999">Unregistered</option>';
                         for($i=0;$i<sizeof($cust);$i++){
                             echo '<option value="'.$cust[$i]["idcustomer"].'">'.$cust[$i]["fName"].' '.$cust[$i]["lName"].'</option>';
                         }                        
@@ -353,8 +357,8 @@
                         echo '<input type="submit" name="create" value="ADD" class="fadelinks" onclick="return confirm(\'Are you sure you want to add this item?\')" />';
                         
                     }else if($_GET["add"]=="Service-Schedule"){
-                        $cust  = StoredProc::gettingCustByCompany($userAdmin, 0);
-                        $serv = StoredProc::gettingServByCompany($userAdmin, 0);
+                        $cust  = StoredProc::gettingCustByCompany($userAdmin);
+                        $serv = StoredProc::gettingServByCompany($userAdmin);
                         
                        // echo '<form action="#" method="post">';
                         echo '<table ><caption>',  $getGet1 ,'</caption><thead><tr>';
@@ -393,9 +397,9 @@
                         
                         
                     }else if($_GET["add"]=="Product-Sales"){
-                        $inv = StoredProc::gettingInvByCompany($userAdmin, 0);
-                        $loc = StoredProc::gettingLocByCompany($userAdmin, 0);
-                        $cust  = StoredProc::gettingCustByCompany($userAdmin, 0);
+                        $inv = StoredProc::gettingInvByCompany($userAdmin);
+                        $loc = StoredProc::gettingLocByCompany($userAdmin);
+                        $cust  = StoredProc::gettingCustByCompany($userAdmin);
                         //print_r($inv);
                         echo '<form action="#" method="post">';
                         echo '<table ><caption>',  $getGet1 ,'</caption><thead><tr>';
@@ -513,6 +517,9 @@
         }
             echo '</div>';            
         ?>
+   
+
+
         <div>  
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="js/jscr.js"></script> 

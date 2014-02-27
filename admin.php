@@ -4,12 +4,22 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Welcome - Week 5</title>
+        <title>Dashboard</title>
         <link rel="stylesheet" type="text/css" href="css/main.css" />
     </head>
     <body>
         
         <?php
+        if (isset($_POST["EditData"]) == 'Edit/Update Data'){
+            header("Location:tableCrud.php");
+        } 
+        else if (isset($_POST["ManageUsers"]) == 'Manage Users'){
+            header("Location:sub_user_admin.php");
+        }
+        else if (isset($_POST["AddEntity"]) == 'Add New Entity'){
+            header("Location:wizard_0.php");
+        }
+        
         
         if ( !isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] != true)
             {
@@ -24,16 +34,30 @@
             }      
         
         ?>
-        <h1 id="h">Welcome <?php if( isset($_SESSION['email'])) echo $_SESSION['email']; 
-        print_r($_SESSION);
-        ?></h1>
-        <a href="tableCrud.php">CRUD</a>
+        <?php print_r($_SESSION); //if( isset($_SESSION['bool'])) echo $_SESSION; ?>
         <div id="divOne">
-            
+
         </div>
         <br />
         <br />
+         <div class="wrapper">
+            <div id="form_wrapper" class="form_wrapper">
+                <form class="login active" name="loginform" method="post">
+                        <table>
+                            <tr>
+                            <td><input type="submit" name="EditData" value="Edit/Update Data"></input></td>
+                            <td><input type="submit"  name="ManageUsers" value="Manage Users"</input></td>
+                            </tr>
+                            <tr>
+                            <td><input type="submit"  name="AddEntity" value="Add New Entity"</input></td>
+                            <td><input type="submit"  name="Themes" value="Themes"</input></td>
+                            </tr>
+                        </table>
+                   
+                </form>
+            </div>
+              <a href="admin.php?logout=1">LOGOUT</a>
+        </div>
         
-        <a href="admin.php?logout=1">LOGOUT</a>
     </body>
 </html>

@@ -430,48 +430,52 @@ class StoredProc extends DB {
         
     }
     
-    public static function gettingInvByCompany($passId){
+    public static function gettingInvByCompany($passId, $editOrAdd){
         $idnum = $passId;
         $dbc = new DB();
         $db = $dbc->getDB();
-        $statement = $db->prepare('call getInvByCompany(:nid);');
+        $statement = $db->prepare('call getInvByCompany(:nid, :editadd);');
         $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->bindParam(':editadd', $editOrAdd, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
         
     }
     
-    public static function gettingLocByCompany($passId){
+    public static function gettingLocByCompany($passId, $editOrAdd){
         $idnum = $passId;
         $dbc = new DB();
         $db = $dbc->getDB();
-        $statement = $db->prepare('call gettingLocByCompany(:nid);');
+        $statement = $db->prepare('call gettingLocByCompany(:nid, :editadd);');
         $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->bindParam(':editadd', $editOrAdd, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
         
     }
     
-    public static function gettingCustByCompany($passId){
+    public static function gettingCustByCompany($passId, $editOrAdd){
         $idnum = $passId;
         $dbc = new DB();
         $db = $dbc->getDB();
-        $statement = $db->prepare('call gettingCustByCompany(:nid);');
+        $statement = $db->prepare('call gettingCustByCompany(:nid, :editadd);');
         $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->bindParam(':editadd', $editOrAdd, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
         
     }
     
-     public static function gettingServByCompany($passId){
+     public static function gettingServByCompany($passId, $editOrAdd){
         $idnum = $passId;
         $dbc = new DB();
         $db = $dbc->getDB();
-        $statement = $db->prepare('call getServByCompany(:nid);');
+        $statement = $db->prepare('call getServByCompany(:nid, :editadd);');
         $statement->bindParam(':nid', $idnum, PDO::PARAM_INT);
+        $statement->bindParam(':editadd', $editOrAdd, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;

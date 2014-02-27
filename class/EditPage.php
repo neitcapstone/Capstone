@@ -200,9 +200,9 @@ class EditPage extends DB{
     
     public function editProdSalesTable($id, $rowid){
        
-        $inv = StoredProc::gettingInvByCompany($id);
-        $loc = StoredProc::gettingLocByCompany($id);
-        $cust  = StoredProc::gettingCustByCompany($id);
+        $inv = StoredProc::gettingInvByCompany($id, 1);
+        $loc = StoredProc::gettingLocByCompany($id, 1);
+        $cust  = StoredProc::gettingCustByCompany($id, 1);
         //if($result['idlocation']==$loc['idlocation']){echo 'selected';}
       
         $result = $this->getDataBaseCall('call getProdSalesTableRow(:nid, :rid);', $id, $rowid);
@@ -280,8 +280,8 @@ class EditPage extends DB{
     public function editInvTable($id, $rowid){
        
         $result = $this->getDataBaseCall('call getEditInvTableRow(:nid, :rid);', $id, $rowid);
-        $inv = StoredProc::gettingInvByCompany($id);
-        $loc = StoredProc::gettingLocByCompany($id);
+        $inv = StoredProc::gettingInvByCompany($id, 1);
+        $loc = StoredProc::gettingLocByCompany($id, 1);
         
         echo '<form action="#" method="post">';
         echo '<table><caption>Inventory</caption><tr>';
@@ -341,8 +341,8 @@ class EditPage extends DB{
     public function editServSchedTable($id, $rowid){
        
         $result = $this->getDataBaseCall('call getServSchedTableRow(:nid, :rid);', $id, $rowid);
-        $cust  = StoredProc::gettingCustByCompany($id);
-        $serv = StoredProc::gettingServByCompany($id);
+        $cust  = StoredProc::gettingCustByCompany($id, 1);
+        $serv = StoredProc::gettingServByCompany($id, 1);
         
         echo '<form action="#" method="post">';
         echo '<table><caption>Service Schedule</caption><tr>';
@@ -402,9 +402,9 @@ class EditPage extends DB{
        
         
         $result = $this->getDataBaseCall('call getServSalesSaleRow(:nid, :rid);', $id, $rowid);
-        $loc = StoredProc::gettingLocByCompany($id);
-        $cust  = StoredProc::gettingCustByCompany($id);
-        $serv = StoredProc::gettingServByCompany($id);
+        $loc = StoredProc::gettingLocByCompany($id, 1);
+        $cust  = StoredProc::gettingCustByCompany($id, 1);
+        $serv = StoredProc::gettingServByCompany($id, 1);
         
         echo '<form action="#" method="post">';
         echo '<table><caption>Service Sales</caption><tr>';
@@ -422,7 +422,7 @@ class EditPage extends DB{
         echo '</select>';
         echo '</th><th>Customer</th>';                        
         echo '<th><select name="idcustomer">';        
-        echo '<option value="9999">Unregistered</option>';
+        //echo '<option value="9999">Unregistered</option>';
         for($i=0;$i<sizeof($cust);$i++){
             $selected = ($result['idcustomer']==$cust[$i]['idcustomer']) ? 'selected' : '';
             echo '<option value="'.$cust[$i]["idcustomer"].'"'

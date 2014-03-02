@@ -265,7 +265,7 @@ class EditPage extends DB{
         $statement->bindParam(':idprod', $idprod, PDO::PARAM_INT);
         $statement->bindParam(':idloc', $idloc, PDO::PARAM_INT);
         $statement->bindParam(':idcust', $idcust, PDO::PARAM_INT);
-        $statement->bindParam(':dte', $date, PDO::PARAM_STR);
+        $statement->bindParam(':dte', $date, PDO::PARAM_STR);//
         $statement->bindParam(':amount', $amount, PDO::PARAM_INT);
         $statement->bindParam(':id', $id, PDO::PARAM_INT);
         //$statement->execute();

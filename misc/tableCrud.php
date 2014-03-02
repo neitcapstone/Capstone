@@ -434,11 +434,11 @@
                         echo '</tr><tr>';
                         
                         echo '<th>Amount</th>';
-                        echo '<th><input type="text" name="amount" value="" />';; 
+                        echo '<th><input type="text" name="amount" value="" />';
                         echo '</th>';
                         
                         echo '<th>Date</th>';
-                        echo '<th><input type="text" name="date" value="" />';; 
+                        echo '<th><input type="text" name="date" value="" />';
                         echo '</th>';
                         
                         echo '</tr></tbody></table>';
@@ -503,7 +503,12 @@
                     for($i = 0; $i < sizeof(array_keys($tableModel[0]));$i++ ){
                         //if(array_keys($tableModel[0])[$i] != "A"){
                            // if($row["A"]==1){
-                                echo '<td>',$row[array_keys($tableModel[0])[$i]],'</td>';
+                            if(array_keys($tableModel[0])[$i] == "Date" || array_keys($tableModel[0])[$i] == "Receipt Date"){
+                                
+                            }else{
+                               //echo '<td>',[array_keys($tableModel[0])[$i]],'</td>';
+                               echo '<td>',$row[array_keys($tableModel[0])[$i]],'</td>';
+                            }
                             //}
                         //}
                     }  

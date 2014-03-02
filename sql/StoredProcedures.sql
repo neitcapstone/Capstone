@@ -259,7 +259,7 @@ IF editadd = 1 THEN
 ELSE
 	SELECT distinct p.fName, p.lName, p.idcustomer
 	FROM customer p, user_admin u
-	WHERE u.iduser = p.iduser AND u.iduser = nid AND p.active = 1;
+	WHERE u.iduser = p.iduser AND u.iduser = nid;
 END IF;
 END$$
 
@@ -480,7 +480,7 @@ END$$
 
 DROP PROCEDURE IF exists `updateProdSalesTable` $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateProdSalesTable`(in idprod int, in idloc int, in amount int, 
-	in idcust int, in dte date, in id int)
+	in idcust int, in dte varchar(30), in id int)
 BEGIN
 
 UPDATE sale_product
@@ -509,7 +509,7 @@ END$$
 --
 
 DROP PROCEDURE IF exists `updateServSalesTable` $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateServSalesTable`(in dte date, in idloc int, in idserv int, 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateServSalesTable`(in dte varchar(30), in idloc int, in idserv int, 
 	in idcust int, in hours varchar(45), in id int)
 BEGIN
 
@@ -523,7 +523,7 @@ END$$
 --
 
 DROP PROCEDURE IF exists `updateServSchedTable` $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateServSchedTable`(in dte date, in tme time, in idserv int, 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateServSchedTable`(in dte varchar(30), in tme varchar(30), in idserv int, 
 	in idcust int, in id int)
 BEGIN
 
@@ -646,7 +646,7 @@ END$$
 
 DROP PROCEDURE IF exists `addProdSalesTable` $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addProdSalesTable`(in idloc int, in idprod int,
-	in idcust int, in amount int, in dte date, in id int)
+	in idcust int, in amount int, in dte varchar(30), in id int)
 BEGIN
 
 INSERT INTO sale_product

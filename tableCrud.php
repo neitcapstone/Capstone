@@ -499,9 +499,16 @@
                     for($i = 0; $i < sizeof(array_keys($tableModel[0]));$i++ ){
                         //if(array_keys($tableModel[0])[$i] != "A"){
                            // if($row["A"]==1){
+                           if((array_keys( $tableModel[0])[$i] == "Date"  || array_keys($tableModel[0])[$i] == "Receipt Date")  && 
+                                   $row[array_keys($tableModel[0])[$i]] != ""){
+                               echo '<td>',date("m/d/Y", strtotime($row[array_keys($tableModel[0])[$i]])),'</td>';                               
+                           }else if(array_keys($tableModel[0])[$i] == "Hourly Price" || array_keys($tableModel[0])[$i] == "Total Price" 
+                                   || array_keys($tableModel[0])[$i] == "Price"){
+                               echo '<td>$ ',number_format($row[array_keys($tableModel[0])[$i]], 2),'</td>';
+                           }else{
+                                //echo '<td>',array_keys($tableModel[0])[$i],'</td>';
                                 echo '<td>',$row[array_keys($tableModel[0])[$i]],'</td>';
-                            //}
-                        //}
+                            }     
                     }  
                     //if($row["A"]==1){
                         echo '<td><a class="links" href="?',$getGet,'=1&edit=',$row["UniqueID"],'">Edit</a></td>';

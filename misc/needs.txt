@@ -1,0 +1,8 @@
+servsales -> cust, loc, serv
+servsched -> serv, cust
+
+prodsales -> cust, loc, prod
+inventory -> prod, loc
+
+
+
